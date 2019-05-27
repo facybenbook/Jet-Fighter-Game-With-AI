@@ -39,6 +39,7 @@ public class Fly : MonoBehaviour
     void FixedUpdate()
     {
         bool fireButton = Input.GetButton("Fire1");
+        Collider[] shipColliders = transform.GetComponentsInChildren<Collider>();
         if (fireButton)
         {
             nextFire -= Time.deltaTime;
@@ -46,8 +47,13 @@ public class Fly : MonoBehaviour
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    Instantiate(bullet, firePoints[i].position, Quaternion.Euler(0, 0, 0));
+                    GameObject bulletClone = Instantiate(bullet, firePoints[i].position, transform.rotation);
+                    for (int j = 0; j < shipColliders.Length; j++)
+                    {
+                        Physics.IgnoreCollision(bulletClone.transform.GetComponent<Collider>(), shipColliders[j]);
+                    }
                 }
+                nextFire = 1 / fireRate;
             }
         }
     }

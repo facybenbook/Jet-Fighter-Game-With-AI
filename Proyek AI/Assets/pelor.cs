@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class pelor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float BulletSpeed;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        transform.GetComponent<Rigidbody>().velocity = transform.forward * BulletSpeed;
     }
 }
