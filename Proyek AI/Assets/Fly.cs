@@ -20,12 +20,6 @@ public class Fly : MonoBehaviour
     public GameObject cam;
     public GameObject groundDetector;
     public GameObject explosion;
-
-    public GameObject bullet;
-    public Transform[] firePoints = new Transform[1];
-    public float fireRate;
-    private float nextFire;
-
     private float curSpeed = 0.0f;
     private float curFall = 0.0f;
     private bool isFalling = false;
@@ -33,30 +27,9 @@ public class Fly : MonoBehaviour
 
     void Start()
     {
-        nextFire = 1 / fireRate;
+
     }
 
-    void FixedUpdate()
-    {
-        bool fireButton = Input.GetButton("Fire1");
-        Collider[] shipColliders = transform.GetComponentsInChildren<Collider>();
-        if (fireButton)
-        {
-            nextFire -= Time.deltaTime;
-            if (nextFire <= 0)
-            {
-                for (int i = 0; i < 1; i++)
-                {
-                    GameObject bulletClone = Instantiate(bullet, firePoints[i].position, transform.rotation);
-                    for (int j = 0; j < shipColliders.Length; j++)
-                    {
-                        Physics.IgnoreCollision(bulletClone.transform.GetComponent<Collider>(), shipColliders[j]);
-                    }
-                }
-                nextFire = 1 / fireRate;
-            }
-        }
-    }
     void Update()
     {
         if (isFalling == false)
