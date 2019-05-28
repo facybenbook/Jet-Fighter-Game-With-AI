@@ -141,5 +141,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         {
             m_Target = target;
         }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if (col.gameObject.tag == "Terrain")
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
