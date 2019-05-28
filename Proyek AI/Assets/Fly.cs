@@ -19,7 +19,7 @@ public class Fly : MonoBehaviour
     public float speedToFly = 40.0f;
     public GameObject cam;
     public GameObject groundDetector;
-    public GameObject explosion;
+    //public GameObject explosion;
     public bool lihat = true;
 
     public GameObject bullet;
@@ -31,7 +31,7 @@ public class Fly : MonoBehaviour
     private float curFall = 0.0f;
     private bool isFalling = false;
     static bool isGrounded = true;
-
+    public int health;
     void Start()
     {
         nextFire = 1 / fireRate;
@@ -148,9 +148,20 @@ public class Fly : MonoBehaviour
         {
             GameObject cam1 = Instantiate(cam, cam.transform.position, cam.transform.rotation);
             cam1.SetActive(true);
-            GameObject explo = Instantiate(explosion, transform.position, transform.rotation);
-            Destroy(groundDetector);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+            
+        }
+        if (col.gameObject.tag == "EnemyBullet")
+        {
+            health = health - 20;
+
+            if (health <= 0)
+            {
+                GameObject cam1 = Instantiate(cam, cam.transform.position, cam.transform.rotation);
+                cam1.SetActive(true);
+                Destroy(this.gameObject);
+            }
+            
         }
     }
 }

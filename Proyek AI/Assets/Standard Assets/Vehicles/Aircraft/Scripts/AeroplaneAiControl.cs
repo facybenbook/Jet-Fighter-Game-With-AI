@@ -36,6 +36,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         public Transform[] firePoints = new Transform[1];
         private float fireRate = 5;
         private float nextFire;
+
+        public int health;
         // setup script properties
         private void Awake()
         {
@@ -146,7 +148,18 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         {
             if (col.gameObject.tag == "Terrain")
             {
-                Destroy(gameObject);
+                Destroy(this.gameObject);
+
+            }
+            if (col.gameObject.tag == "Bullet")
+            {
+                health = health - 20;
+
+                if (health <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+                
             }
         }
     }
