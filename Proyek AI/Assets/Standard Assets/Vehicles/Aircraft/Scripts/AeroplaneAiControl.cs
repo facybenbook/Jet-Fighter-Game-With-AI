@@ -44,6 +44,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         Boolean stateFlee = false;
         public int health;
         Vector3 friendPos;
+        
+
         // setup script properties
         private void Awake()
         {
@@ -61,7 +63,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             m_TakenOff = false;
         }
 
-
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.tag == "Terrain")
+            {
+                Debug.Log("Terrain Detected");
+            }
+        }
         // fixed update is called in time with the physics system update
         private void FixedUpdate()
         {
@@ -69,6 +77,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                                     transform.right *
                                     (Mathf.PerlinNoise(Time.time * m_LateralWanderSpeed, m_RandomPerlin) * 2 - 1) *
                                     m_LateralWanderDistance;
+
+            
             if(health < 50)
             {
                 if ((transform.position - friendPos).magnitude < 500)

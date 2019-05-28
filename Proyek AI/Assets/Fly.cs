@@ -142,6 +142,14 @@ public class Fly : MonoBehaviour
         }
         print(curSpeed);
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Terrain")
+        {
+            Debug.Log("Awas");
+        }
+    }
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Terrain")
