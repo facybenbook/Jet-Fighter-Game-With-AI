@@ -69,6 +69,29 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             {
                 Debug.Log("Terrain Detected");
             }
+            if (m_Friend.tag == "Player")
+            {
+                if (health < 50 && other.gameObject.tag == "Enemy")
+                {
+                    stateFlee = true;
+                    stateAttack = false;
+                    stateFollow = false;
+                    stateProtect = false;
+                }
+                else stateFlee = false;
+            }
+            else
+            {
+                if (health < 50 && other.gameObject.tag == "Player")
+                {
+                    stateFlee = true;
+                    stateAttack = false;
+                    stateFollow = false;
+                    stateProtect = false;
+                }
+                else stateFlee = false;
+            }
+
         }
         // fixed update is called in time with the physics system update
         private void FixedUpdate()
@@ -79,14 +102,10 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                                     m_LateralWanderDistance;
 
             
-            if(health < 50)
+            if(stateFlee == true)
             {
                 if ((transform.position - friendPos).magnitude < 500)
                 {
-                    stateAttack = false;
-                    stateFlee = false;
-                    stateFollow = false;
-                    stateProtect = true;
                     // make the plane wander from the path, useful for making the AI seem more human, less robotic.
 
                     // adjust the yaw and pitch towards the friend

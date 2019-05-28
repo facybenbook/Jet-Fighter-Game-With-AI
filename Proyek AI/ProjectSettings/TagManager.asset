@@ -8,6 +8,7 @@ TagManager:
   - cam2
   - Bullet
   - EnemyBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
