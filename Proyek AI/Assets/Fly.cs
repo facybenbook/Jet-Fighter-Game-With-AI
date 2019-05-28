@@ -20,6 +20,7 @@ public class Fly : MonoBehaviour
     public GameObject cam;
     public GameObject groundDetector;
     public GameObject explosion;
+    public bool lihat = true;
 
     public GameObject bullet;
     public Transform[] firePoints = new Transform[1];
@@ -74,6 +75,7 @@ public class Fly : MonoBehaviour
         {
             curSpeed--;
         }
+
         if (Input.GetKey(accelKey))
         {
         }
@@ -140,9 +142,9 @@ public class Fly : MonoBehaviour
         }
         print(curSpeed);
     }
-    void OnTriggerEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
-        if (col.tag == "Terrain")
+        if (col.gameObject.tag == "Terrain")
         {
             GameObject cam1 = Instantiate(cam, cam.transform.position, cam.transform.rotation);
             cam1.SetActive(true);
